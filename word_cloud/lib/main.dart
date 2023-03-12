@@ -118,7 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => WordCloud()));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WordCloud()),
+          );
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
