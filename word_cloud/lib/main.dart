@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_cloud/second_word_cloud.dart';
 import 'package:word_cloud/word_cloud.dart';
 
 void main() {
@@ -109,9 +110,17 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WordCloud()),
+                );
+              },
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
             ),
           ],
         ),
@@ -120,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => WordCloud()),
+            MaterialPageRoute(builder: (context) => SecondWordCloud()),
           );
         },
         tooltip: 'Increment',
