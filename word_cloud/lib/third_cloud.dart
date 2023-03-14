@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class SecondWordCloud extends StatefulWidget {
-  const SecondWordCloud({super.key});
+class ThirdWordCloud extends StatefulWidget {
+  const ThirdWordCloud({super.key});
 
   @override
-  State<SecondWordCloud> createState() => _SecondWordCloudState();
+  State<ThirdWordCloud> createState() => _ThirdWordCloudState();
 }
 
-class _SecondWordCloudState extends State<SecondWordCloud> {
+class _ThirdWordCloudState extends State<ThirdWordCloud> {
   List<dynamic> word_list = [
     {'word': 'Apple', 'value': 65},
     {'word': 'Samsung', 'value': 60},
@@ -107,7 +107,11 @@ class _paint extends CustomPainter {
 
     for (var i = 0; i < mapX; i++) {
       for (var j = 0; j < mapY; j++) {
-        map[i].add(0);
+        if (pow(i - 250, 2) + pow(j - 250, 2) > pow(250, 2)) {
+          map[i].add(1);
+        } else {
+          map[i].add(0);
+        }
       }
       map.add([]);
     }
@@ -144,7 +148,7 @@ class _paint extends CustomPainter {
         visitMap.add([]);
       }
 
-      queue.add([(centerX-w/2).toInt(), (centerY-h/2).toInt()]);
+      queue.add([centerCorrectionX.toInt(), centerCorrectionY.toInt()]);
       //print(centerCorrectionY);
 
       while (queue.length > idx) {
@@ -167,7 +171,7 @@ class _paint extends CustomPainter {
             break;
           } else {
             
-            switch (index%4) {
+            switch ((idx/3).floor()%4) {
               case 0:
                 if (queue[idx][1] + distance < mapY) {
                   queue.add([queue[idx][0], queue[idx][1] + distance]);
@@ -176,12 +180,12 @@ class _paint extends CustomPainter {
                   queue.add([queue[idx][0] + distance, queue[idx][1]]);
                 }
                 
-                // if (queue[idx][0] - distance > 0) {
-                //   queue.add([queue[idx][0] - distance, queue[idx][1]]);
-                // }
-                // if (queue[idx][1] - distance > 0) {
-                //   queue.add([queue[idx][0], queue[idx][1] - distance]);
-                // }
+                if (queue[idx][0] - distance > 0) {
+                  queue.add([queue[idx][0] - distance, queue[idx][1]]);
+                }
+                if (queue[idx][1] - distance > 0) {
+                  queue.add([queue[idx][0], queue[idx][1] - distance]);
+                }
                 break;
               case 1:
                 if (queue[idx][0] - distance > 0) {
@@ -191,12 +195,12 @@ class _paint extends CustomPainter {
                   queue.add([queue[idx][0], queue[idx][1] + distance]);
                 }
                 
-                // if (queue[idx][1] - distance > 0) {
-                //   queue.add([queue[idx][0], queue[idx][1] - distance]);
-                // }
-                // if (queue[idx][0] + distance < mapX) {
-                //   queue.add([queue[idx][0] + distance, queue[idx][1]]);
-                // }
+                if (queue[idx][1] - distance > 0) {
+                  queue.add([queue[idx][0], queue[idx][1] - distance]);
+                }
+                if (queue[idx][0] + distance < mapX) {
+                  queue.add([queue[idx][0] + distance, queue[idx][1]]);
+                }
                 break;
               case 2:
                 if (queue[idx][1] - distance > 0) {
@@ -206,12 +210,12 @@ class _paint extends CustomPainter {
                   queue.add([queue[idx][0] - distance, queue[idx][1]]);
                 }
                 
-                // if (queue[idx][0] + distance < mapX) {
-                //   queue.add([queue[idx][0] + distance, queue[idx][1]]);
-                // }
-                // if (queue[idx][1] + distance < mapY) {
-                //   queue.add([queue[idx][0], queue[idx][1] + distance]);
-                // }
+                if (queue[idx][0] + distance < mapX) {
+                  queue.add([queue[idx][0] + distance, queue[idx][1]]);
+                }
+                if (queue[idx][1] + distance < mapY) {
+                  queue.add([queue[idx][0], queue[idx][1] + distance]);
+                }
                 break;
               case 3:
                 if (queue[idx][0] + distance < mapX) {
@@ -221,12 +225,12 @@ class _paint extends CustomPainter {
                   queue.add([queue[idx][0], queue[idx][1] - distance]);
                 }
                 
-                // if (queue[idx][1] + distance < mapY) {
-                //   queue.add([queue[idx][0], queue[idx][1] + distance]);
-                // }
-                // if (queue[idx][0] - distance > 0) {
-                //   queue.add([queue[idx][0] - distance, queue[idx][1]]);
-                // }
+                if (queue[idx][1] + distance < mapY) {
+                  queue.add([queue[idx][0], queue[idx][1] + distance]);
+                }
+                if (queue[idx][0] - distance > 0) {
+                  queue.add([queue[idx][0] - distance, queue[idx][1]]);
+                }
                 break;
             }
           }

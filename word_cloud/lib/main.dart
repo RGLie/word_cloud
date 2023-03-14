@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:word_cloud/second_word_cloud.dart';
+import 'package:word_cloud/third_cloud.dart';
 import 'package:word_cloud/word_cloud.dart';
 
 void main() {
@@ -121,6 +122,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 '$_counter',
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
+              onLongPress: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ThirdWordCloud()),
+                );
+              },
             ),
           ],
         ),
@@ -132,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute(builder: (context) => SecondWordCloud()),
           );
         },
+      
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

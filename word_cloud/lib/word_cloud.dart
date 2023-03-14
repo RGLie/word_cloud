@@ -32,18 +32,24 @@ class _WordCloudState extends State<WordCloud> {
     {'word': 'Lucid', 'value': 22},
     {'word': 'Naver', 'value': 20},
     {'word': 'Kakao', 'value': 18},
-    {'word': 'NC Soft', 'value': 15},
-    {'word': 'LG', 'value': 14},
-    {'word': 'Hyundai', 'value': 12},
-    {'word': 'KIA', 'value': 10},
+    {'word': 'NC Soft', 'value': 18},
+    {'word': 'LG', 'value': 16},
+    {'word': 'Hyundai', 'value': 16},
+    {'word': 'KIA', 'value': 16},
+    {'word': 'twitter', 'value': 16},
+    {'word': 'Tencent', 'value': 15},
+    {'word': 'Alibaba', 'value': 15},
+    {'word': 'Disney', 'value': 14},
+    {'word': 'Spotify', 'value': 14},
+    {'word': 'Udemy', 'value': 13},
+    {'word': 'Quizlet', 'value': 13},
+    {'word': 'Visa', 'value': 12},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        
-      ),
+      appBar: AppBar(),
       body: Center(
         child: Container(
           width: 400,
@@ -121,6 +127,7 @@ class _paint extends CustomPainter {
     // }
 
     int textIndex = 0;
+    List addedText = [];
 
     for (var i = 0; i < wordlist.length; i++) {
       final textSpan = TextSpan(
@@ -135,6 +142,7 @@ class _paint extends CustomPainter {
         ..layout();
 
       textlist.add(textPainter);
+      addedText.add(0);
     }
 
     //textlist.shuffle();
@@ -169,12 +177,11 @@ class _paint extends CustomPainter {
 
     void insertTextPaintVerical(int idx, double x, double y) {
       canvas.save();
-      canvas.translate((x ), (y ));
-      canvas.rotate(pi/2);
-      canvas.translate(-(x), -(y ));
-      textlist[idx].paint(canvas, Offset(x, y-textlist[idx].height));
+      canvas.translate((x), (y));
+      canvas.rotate(pi / 2);
+      canvas.translate(-(x), -(y));
+      textlist[idx].paint(canvas, Offset(x, y - textlist[idx].height));
       canvas.restore();
-      
 
       for (int i = x.toInt(); i < x.toInt() + textlist[idx].height; i++) {
         for (int j = y.toInt(); j < y.toInt() + textlist[idx].width; j++) {
@@ -183,32 +190,41 @@ class _paint extends CustomPainter {
       }
     }
 
+    int getTextIndex() {
+      for (var i = 0; i < addedText.length; i++) {
+        if (addedText[i] == 0) {
+          return i;
+        }
+      }
+      return addedText.length;
+    }
+
     void addText(double sx, double sy, double ex, double ey) {
       print(textlist.length);
-      if (textlist.length > textIndex) {
-        if (checkMap(sx, sy, ex, ey, textlist[textIndex].width,
-            textlist[textIndex].height)) {
-          insertTextPaint(textIndex, sx, sy);
-          int w = textlist[textIndex].width;
-          int h = textlist[textIndex].height;
-          textIndex += 1;
+      int tidx = getTextIndex();
+      if (textlist.length > tidx) {
+        if (checkMap(
+            sx, sy, ex, ey, textlist[tidx].width, textlist[tidx].height)) {
+          insertTextPaint(tidx, sx, sy);
+          int w = textlist[tidx].width;
+          int h = textlist[tidx].height;
+          addedText[tidx] = 1;
           addText(sx + w, sy, ex, ey);
           addText(sx, sy + h, ex, ey);
           addText(sx + w, 0, ex, ey);
           addText(0, sy + h, ex, ey);
         }
-        if (checkMap(sx, sy, ex, ey, textlist[textIndex].height,
-            textlist[textIndex].width)) {
-          insertTextPaintVerical(textIndex, sx, sy);
-          int h = textlist[textIndex].width;
-          int w = textlist[textIndex].height;
-          textIndex += 1;
-          addText(sx + w, sy, ex, ey);
-          addText(sx, sy + h, ex, ey);
-          addText(sx + w, 0, ex, ey);
-          addText(0, sy + h, ex, ey);
-        }
-
+        // if (checkMap(sx, sy, ex, ey, textlist[textIndex].height,
+        //     textlist[textIndex].width)) {
+        //   insertTextPaintVerical(textIndex, sx, sy);
+        //   int h = textlist[textIndex].width;
+        //   int w = textlist[textIndex].height;
+        //   textIndex += 1;
+        //   addText(sx + w, sy, ex, ey);
+        //   addText(sx, sy + h, ex, ey);
+        //   addText(sx + w, 0, ex, ey);
+        //   addText(0, sy + h, ex, ey);
+        // }
       }
     }
 
