@@ -44,8 +44,8 @@ class _SecondWordCloudState extends State<SecondWordCloud> {
       appBar: AppBar(),
       body: Center(
         child: Container(
-          width: 400,
-          height: 400,
+          width: 500,
+          height: 500,
           color: Color.fromARGB(255, 174, 183, 235),
           child: CustomPaint(
             painter: _paint(wordlist: word_list),
@@ -67,8 +67,8 @@ class _paint extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double mapX = 400;
-    double mapY = 400;
+    double mapX = 500;
+    double mapY = 500;
     int distance = 10;
     double startPointX = 0;
     double startPointY = 0;
@@ -95,7 +95,13 @@ class _paint extends CustomPainter {
 
     for (var i = 0; i < mapX; i++) {
       for (var j = 0; j < mapY; j++) {
-        map[i].add(0);
+        if(pow(i-250, 2)+pow(j-250,2)>pow(250,2)){
+          map[i].add(1);
+        }
+        else{
+          map[i].add(0);
+        }
+        
       }
       map.add([]);
     }
@@ -159,13 +165,19 @@ class _paint extends CustomPainter {
             if (queue[idx][1] + distance < mapY) {
               queue.add([queue[idx][0], queue[idx][1] + distance]);
             }
+            if (queue[idx][0] - distance > 0) {
+              queue.add([queue[idx][0] - distance, queue[idx][1]]);
+            }
+            if (queue[idx][1] - distance > 0) {
+              queue.add([queue[idx][0], queue[idx][1] - distance]);
+            }
           }
         }
         idx += 1;
       }
     }
 
-    textlist.shuffle();
+    //textlist.shuffle();
 
     for (var i = 0; i < textlist.length; i++) {
       drawPoint(i);
