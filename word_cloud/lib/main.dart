@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_cloud/four.dart';
 import 'package:word_cloud/second_word_cloud.dart';
 import 'package:word_cloud/third_cloud.dart';
 import 'package:word_cloud/word_cloud.dart';
@@ -129,6 +130,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FourthWordCloud()),
+                );
+              },
+              child: Text('aaaaaaaaaaaaaaaa'))
           ],
         ),
       ),
