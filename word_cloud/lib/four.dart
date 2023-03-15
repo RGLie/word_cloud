@@ -47,6 +47,13 @@ class _FourthWordCloudState extends State<FourthWordCloud> {
   ];
 
   @override
+  void initState(){
+    super.initState();
+  
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
