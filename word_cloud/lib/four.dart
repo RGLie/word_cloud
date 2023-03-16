@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:word_cloud/word_cloud.dart';
 
 class FourthWordCloud extends StatefulWidget {
   const FourthWordCloud({super.key});
@@ -10,8 +11,8 @@ class FourthWordCloud extends StatefulWidget {
 }
 
 class _FourthWordCloudState extends State<FourthWordCloud> {
-  List<dynamic> word_list = [
-    {'word': 'Apple', 'value': 65},
+  List<Map> word_list = [
+    {'word': 'Apple', 'value': 100},
     {'word': 'Samsung', 'value': 60},
     {'word': 'Intel', 'value': 55},
     {'word': 'Tesla', 'value': 50},
@@ -47,10 +48,8 @@ class _FourthWordCloudState extends State<FourthWordCloud> {
   ];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-  
-
   }
 
   @override
@@ -75,7 +74,7 @@ class _FourthWordCloudState extends State<FourthWordCloud> {
 }
 
 class _paint extends CustomPainter {
-  final List<dynamic> wordlist;
+  final List<Map> wordlist;
   _paint({
     required this.wordlist,
   });
@@ -137,17 +136,17 @@ class _paint extends CustomPainter {
       return true;
     }
 
-    textlist[0].paint(canvas, Offset(textCenter[0][0], textCenter[0][1]));
-    for (int i = textCenter[0][0].toInt();
-        i < textCenter[0][0].toInt() + textlist[0].width;
-        i++) {
-      for (int j = textCenter[0][1].toInt();
-          j < textCenter[0][1].toInt() + textlist[0].height;
-          j++) {
-        map[i][j] = 1;
-        //visitMap[i][j] = 1;
-      }
-    }
+    // textlist[0].paint(canvas, Offset(textCenter[0][0], textCenter[0][1]));
+    // for (int i = textCenter[0][0].toInt();
+    //     i < textCenter[0][0].toInt() + textlist[0].width;
+    //     i++) {
+    //   for (int j = textCenter[0][1].toInt();
+    //       j < textCenter[0][1].toInt() + textlist[0].height;
+    //       j++) {
+    //     map[i][j] = 1;
+    //     //visitMap[i][j] = 1;
+    //   }
+    // }
 
     void drawIn(int index, double x, double y) {
       //textlist[index].paint(canvas, Offset(x, y));
@@ -160,9 +159,8 @@ class _paint extends CustomPainter {
       }
     }
 
-    drawIn(0, textCenter[0][0], textCenter[0][1]);
-
     void drawText() {
+      drawIn(0, textCenter[0][0], textCenter[0][1]);
       for (var i = 1; i < textlist.length; i++) {
         double w = textlist[i].width;
         double h = textlist[i].height;
@@ -204,8 +202,14 @@ class _paint extends CustomPainter {
       }
     }
 
-    drawText();
-    realDrawText();
+    // drawText();
+    // realDrawText();
+    WordCloud myWC = WordCloud(mapX: 500, mapY: 500, data: wordlist);
+    myWC.drawText();
+    List a = myWC.getWordPoint();
+    for (var i = 0; i < wordlist.length; i++) {
+      myWC.getTextPainter()[i].paint(canvas, Offset(a[i][0], a[i][1]));
+    }
 
     // Paint paint = Paint()
     //   ..strokeWidth = 3
