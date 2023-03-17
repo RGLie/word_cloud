@@ -39,7 +39,9 @@ class WordCloud {
       map.add([]);
     }
     //numbers.sort((a, b) => a.length.compareTo(b.length));
-    data=(data..sort((a, b) => a['value'].compareTo(b['value']))).reversed.toList();
+    data = (data..sort((a, b) => a['value'].compareTo(b['value'])))
+        .reversed
+        .toList();
 
     for (var i = 0; i < data.length; i++) {
       double getTextSize =
@@ -147,5 +149,50 @@ class WordCloud {
     return textlist;
   }
 
-  void setDataList(List<Map> samples) {}
+  int getDataLength() {
+    return data.length;
+  }
+
+  void setDataList(List<Map> samples) {
+    data = samples;
+    textlist = [];
+    textCenter = [];
+    textPoints = [];
+
+    data = (data..sort((a, b) => a['value'].compareTo(b['value'])))
+        .reversed
+        .toList();
+
+    for (var i = 0; i < data.length; i++) {
+      double getTextSize =
+          (minTextSize * (data[0]['value'] - data[i]['value']) +
+                  maxTextSize *
+                      (data[i]['value'] - data[data.length - 1]['value'])) /
+              (data[0]['value'] - data[data.length - 1]['value']);
+
+      final textSpan = TextSpan(
+        text: data[i]['word'],
+        style: TextStyle(
+          color: colorList[Random().nextInt(colorList.length)],
+          fontSize: getTextSize,
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontStyle: fontStyle,
+        ),
+      );
+
+      final textPainter = TextPainter()
+        ..text = textSpan
+        ..textDirection = TextDirection.ltr
+        ..textAlign = TextAlign.center
+        ..layout();
+
+      textlist.add(textPainter);
+
+      double centerCorrectionX = centerX - textlist[i].width / 2;
+      double centerCorrectionY = centerY - textlist[i].height / 2;
+      textCenter.add([centerCorrectionX, centerCorrectionY]);
+      textPoints.add([]);
+    }
+  }
 }
