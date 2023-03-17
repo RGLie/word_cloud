@@ -39,14 +39,15 @@ class WordCloud {
       map.add([]);
     }
     //numbers.sort((a, b) => a.length.compareTo(b.length));
-    data.sort((b, a) => a['value'].compareTo(b['value']));
+    data=(data..sort((a, b) => a['value'].compareTo(b['value']))).reversed.toList();
 
     for (var i = 0; i < data.length; i++) {
       double getTextSize =
-          (minTextSize * (data[0]['value'] - data[i]['value']) -
+          (minTextSize * (data[0]['value'] - data[i]['value']) +
                   maxTextSize *
                       (data[i]['value'] - data[data.length - 1]['value'])) /
               (data[0]['value'] - data[data.length - 1]['value']);
+
       final textSpan = TextSpan(
         text: data[i]['word'],
         style: TextStyle(
