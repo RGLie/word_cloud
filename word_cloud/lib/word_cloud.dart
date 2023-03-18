@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class WordCloud {
-  double mapX;
-  double mapY;
+  double mapX = 0;
+  double mapY = 0;
   String? fontFamily;
   FontStyle? fontStyle;
   FontWeight? fontWeight;
@@ -21,15 +21,20 @@ class WordCloud {
 
   WordCloud({
     Key? key,
-    required this.mapX,
-    required this.mapY,
     required this.data,
     this.fontFamily,
     this.fontStyle,
     this.fontWeight = FontWeight.bold,
     this.minTextSize = 10,
     this.maxTextSize = 100,
-  }) {
+  });
+
+  void setMapSize(double x, double y) {
+    mapX = x;
+    mapY = y;
+  }
+
+  void setInitial() {
     centerX = mapX / 2;
     centerY = mapY / 2;
     for (var i = 0; i < mapX; i++) {

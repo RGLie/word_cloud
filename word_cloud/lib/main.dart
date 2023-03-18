@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:word_cloud/four.dart';
+import 'package:word_cloud/word_cloud.dart';
+import 'package:word_cloud/word_cloud_view.dart';
 import 'package:word_cloud/second_word_cloud.dart';
 import 'package:word_cloud/third_cloud.dart';
-import 'package:word_cloud/word_cloudss.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -60,53 +61,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<Map> word_list = [
+    {'word': 'Apple', 'value': 100},
+    {'word': 'Samsung', 'value': 60},
+    {'word': 'Intel', 'value': 55},
+    {'word': 'Tesla', 'value': 50},
+    {'word': 'AMD', 'value': 40},
+    {'word': 'Google', 'value': 35},
+    {'word': 'Qualcom', 'value': 31},
+    {'word': 'Netflix', 'value': 27},
+    {'word': 'Meta', 'value': 27},
+    {'word': 'Amazon', 'value': 26},
+    {'word': 'Nvidia', 'value': 25},
+    {'word': 'Microsoft', 'value': 25},
+    {'word': 'TSMC', 'value': 24},
+    {'word': 'PayPal', 'value': 24},
+    {'word': 'AT&T', 'value': 24},
+    {'word': 'Oracle', 'value': 23},
+    {'word': 'Unity', 'value': 23},
+    {'word': 'Roblox', 'value': 23},
+    {'word': 'Lucid', 'value': 22},
+    {'word': 'Naver', 'value': 20},
+    {'word': 'Kakao', 'value': 18},
+    {'word': 'NC Soft', 'value': 18},
+    {'word': 'LG', 'value': 16},
+    {'word': 'Hyundai', 'value': 16},
+    {'word': 'KIA', 'value': 16},
+    {'word': 'twitter', 'value': 16},
+    {'word': 'Tencent', 'value': 15},
+    {'word': 'Alibaba', 'value': 15},
+    {'word': 'Disney', 'value': 14},
+    {'word': 'Spotify', 'value': 14},
+    {'word': 'Udemy', 'value': 13},
+    {'word': 'Quizlet', 'value': 13},
+    {'word': 'Visa', 'value': 12},
+  ];
+  late WordCloud wordcloud;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    wordcloud = WordCloud(data: word_list);
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -114,10 +120,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WordCloud()),
-                );
               },
               child: Text(
                 '$_counter',
@@ -130,14 +132,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
             ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FourthWordCloud()),
-                );
-              },
-              child: Text('aaaaaaaaaaaaaaaa'))
+            WordCloudView(
+              wordcloud: wordcloud,
+              mapcolor: Color.fromARGB(255, 174, 183, 235),
+              mapwidth: 500,
+              mapheight: 500,
+            )
           ],
         ),
       ),
@@ -148,7 +148,6 @@ class _MyHomePageState extends State<MyHomePage> {
             MaterialPageRoute(builder: (context) => SecondWordCloud()),
           );
         },
-      
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
