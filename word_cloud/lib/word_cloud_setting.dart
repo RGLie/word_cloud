@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class WordCloud {
+class WordCloudSetting {
   double mapX = 0;
   double mapY = 0;
   String? fontFamily;
@@ -17,14 +17,11 @@ class WordCloud {
   double centerY = 0;
   double minTextSize;
   double maxTextSize;
-  List<Color> colorList = [Colors.black];
+  List<Color>? colorList = [Colors.black, Colors.redAccent, Colors.indigoAccent];
 
-  WordCloud({
+  WordCloudSetting({
     Key? key,
     required this.data,
-    this.fontFamily,
-    this.fontStyle,
-    this.fontWeight = FontWeight.bold,
     this.minTextSize = 10,
     this.maxTextSize = 100,
   });
@@ -32,6 +29,16 @@ class WordCloud {
   void setMapSize(double x, double y) {
     mapX = x;
     mapY = y;
+  }
+
+  void setColorList(List<Color>? colors){
+    colorList = colors;
+  }
+
+  void setFont(String? family, FontStyle? style, FontWeight? weight){
+    fontFamily = family;
+    fontStyle = style;
+    fontWeight = weight;
   }
 
   void setInitial() {
@@ -58,7 +65,7 @@ class WordCloud {
       final textSpan = TextSpan(
         text: data[i]['word'],
         style: TextStyle(
-          color: colorList[Random().nextInt(colorList.length)],
+          color: colorList?[Random().nextInt(colorList!.length)],
           fontSize: getTextSize,
           fontWeight: fontWeight,
           fontFamily: fontFamily,
@@ -178,7 +185,7 @@ class WordCloud {
       final textSpan = TextSpan(
         text: data[i]['word'],
         style: TextStyle(
-          color: colorList[Random().nextInt(colorList.length)],
+          color: colorList?[Random().nextInt(colorList!.length)],
           fontSize: getTextSize,
           fontWeight: fontWeight,
           fontFamily: fontFamily,

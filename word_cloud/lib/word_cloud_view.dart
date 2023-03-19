@@ -1,27 +1,38 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:word_cloud/word_cloud.dart';
+import 'package:word_cloud/word_cloud_setting.dart';
 
 class WordCloudView extends StatelessWidget {
-  final WordCloud wordcloud;
+  final WordCloudSetting wordcloud;
   final Color? mapcolor;
   final Decoration? decoration;
   final double mapwidth;
+  final String? fontFamily;
+  final FontStyle? fontStyle;
+  final FontWeight? fontWeight;
   final double mapheight;
+  final List<Color>? colorlist;
 
   WordCloudView({
     super.key,
     required this.wordcloud,
     required this.mapwidth,
     required this.mapheight,
+    this.fontFamily,
+    this.fontStyle,
+    this.fontWeight,
     this.mapcolor,
     this.decoration,
+    this.colorlist,
   });
 
   @override
   Widget build(BuildContext context) {
     wordcloud.setMapSize(mapwidth, mapheight);
+    wordcloud.setFont(fontFamily, fontStyle, fontWeight);
+    wordcloud.setColorList(colorlist);
+
     wordcloud.setInitial();
     wordcloud.drawText();
 
@@ -38,7 +49,7 @@ class WordCloudView extends StatelessWidget {
 }
 
 class _paint extends CustomPainter {
-  final WordCloud wordcloudpaint;
+  final WordCloudSetting wordcloudpaint;
   _paint({
     required this.wordcloudpaint,
   });
