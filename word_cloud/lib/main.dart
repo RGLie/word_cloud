@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_view.dart';
 import 'package:word_cloud/second_word_cloud.dart';
@@ -33,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   List<Map> word_list = [
     {'word': 'Apple', 'value': 100},
     {'word': 'Samsung', 'value': 60},
@@ -70,15 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
     {'word': 'Visa', 'value': 12},
   ];
   late WordCloudSetting wordcloud;
+  late WordCloudData wcdata;
 
   @override
   void initState() {
     super.initState();
-    wordcloud = WordCloudSetting(data: word_list);
+    wcdata = WordCloudData(data: word_list);
   }
 
   @override
   Widget build(BuildContext context) {
+    //wcdata.addDataAsMapList(word_list);
+    
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -88,45 +91,17 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            InkWell(
-              onTap: () {
-              },
-              child: Text(
-                '$_counter',
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-              onLongPress: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ThirdWordCloud()),
-                );
-              },
-            ),
             WordCloudView(
-              wordcloud: wordcloud,
+              data: wcdata,
               mapcolor: Color.fromARGB(255, 174, 183, 235),
               mapwidth: 500,
-              mapheight: 500,
+              mapheight: 400,
               fontWeight: FontWeight.bold,
               colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
-
             )
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SecondWordCloud()),
-          );
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

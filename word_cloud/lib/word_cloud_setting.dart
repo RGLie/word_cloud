@@ -17,13 +17,13 @@ class WordCloudSetting {
   double centerY = 0;
   double minTextSize;
   double maxTextSize;
-  List<Color>? colorList = [Colors.black, Colors.redAccent, Colors.indigoAccent];
+  List<Color>? colorList = [Colors.black];
 
   WordCloudSetting({
     Key? key,
     required this.data,
-    this.minTextSize = 10,
-    this.maxTextSize = 100,
+    required this.minTextSize,
+    required this.maxTextSize,
   });
 
   void setMapSize(double x, double y) {
@@ -31,11 +31,11 @@ class WordCloudSetting {
     mapY = y;
   }
 
-  void setColorList(List<Color>? colors){
+  void setColorList(List<Color>? colors) {
     colorList = colors;
   }
 
-  void setFont(String? family, FontStyle? style, FontWeight? weight){
+  void setFont(String? family, FontStyle? style, FontWeight? weight) {
     fontFamily = family;
     fontStyle = style;
     fontWeight = weight;
@@ -51,9 +51,6 @@ class WordCloudSetting {
       map.add([]);
     }
     //numbers.sort((a, b) => a.length.compareTo(b.length));
-    data = (data..sort((a, b) => a['value'].compareTo(b['value'])))
-        .reversed
-        .toList();
 
     for (var i = 0; i < data.length; i++) {
       double getTextSize =
@@ -70,6 +67,45 @@ class WordCloudSetting {
           fontWeight: fontWeight,
           fontFamily: fontFamily,
           fontStyle: fontStyle,
+        ),
+      );
+
+      final textPainter = TextPainter()
+        ..text = textSpan
+        ..textDirection = TextDirection.ltr
+        ..textAlign = TextAlign.center
+        ..layout();
+
+      textlist.add(textPainter);
+
+      double centerCorrectionX = centerX - textlist[i].width / 2;
+      double centerCorrectionY = centerY - textlist[i].height / 2;
+      textCenter.add([centerCorrectionX, centerCorrectionY]);
+      textPoints.add([]);
+    }
+  }
+
+  void setTextStyle(List<TextStyle> newstyle) {
+    //only support color, weight, family, fontstyle
+    textlist = [];
+    textCenter = [];
+    textPoints = [];
+
+    for (var i = 0; i < data.length; i++) {
+      double getTextSize =
+          (minTextSize * (data[0]['value'] - data[i]['value']) +
+                  maxTextSize *
+                      (data[i]['value'] - data[data.length - 1]['value'])) /
+              (data[0]['value'] - data[data.length - 1]['value']);
+
+      final textSpan = TextSpan(
+        text: data[i]['word'],
+        style: TextStyle(
+          color: newstyle[i].color,
+          fontSize: getTextSize,
+          fontWeight: newstyle[i].fontWeight,
+          fontFamily: newstyle[i].fontFamily,
+          fontStyle: newstyle[i].fontStyle,
         ),
       );
 
@@ -106,12 +142,10 @@ class WordCloudSetting {
   }
 
   void drawIn(int index, double x, double y) {
-    //textlist[index].paint(canvas, Offset(x, y));
     textPoints[index] = [x, y];
     for (int i = x.toInt(); i < x.toInt() + textlist[index].width; i++) {
       for (int j = y.toInt(); j < y.toInt() + textlist[index].height; j++) {
         map[i][j] = 1;
-        //visitMap[i][j] = 1;
       }
     }
   }
@@ -163,48 +197,5 @@ class WordCloudSetting {
 
   int getDataLength() {
     return data.length;
-  }
-
-  void setDataList(List<Map> samples) {
-    data = samples;
-    textlist = [];
-    textCenter = [];
-    textPoints = [];
-
-    data = (data..sort((a, b) => a['value'].compareTo(b['value'])))
-        .reversed
-        .toList();
-
-    for (var i = 0; i < data.length; i++) {
-      double getTextSize =
-          (minTextSize * (data[0]['value'] - data[i]['value']) +
-                  maxTextSize *
-                      (data[i]['value'] - data[data.length - 1]['value'])) /
-              (data[0]['value'] - data[data.length - 1]['value']);
-
-      final textSpan = TextSpan(
-        text: data[i]['word'],
-        style: TextStyle(
-          color: colorList?[Random().nextInt(colorList!.length)],
-          fontSize: getTextSize,
-          fontWeight: fontWeight,
-          fontFamily: fontFamily,
-          fontStyle: fontStyle,
-        ),
-      );
-
-      final textPainter = TextPainter()
-        ..text = textSpan
-        ..textDirection = TextDirection.ltr
-        ..textAlign = TextAlign.center
-        ..layout();
-
-      textlist.add(textPainter);
-
-      double centerCorrectionX = centerX - textlist[i].width / 2;
-      double centerCorrectionY = centerY - textlist[i].height / 2;
-      textCenter.add([centerCorrectionX, centerCorrectionY]);
-      textPoints.add([]);
-    }
   }
 }
