@@ -64,7 +64,7 @@ class WordCloudSetting {
   }
 
   void setInitial() {
-    map = [[]];
+    //map = [[]];
     textCenter = [];
     textPoints = [];
     textlist = [];
@@ -72,12 +72,14 @@ class WordCloudSetting {
     centerX = mapX / 2;
     centerY = mapY / 2;
 
-    for (var i = 0; i < mapX; i++) {
-      for (var j = 0; j < mapY; j++) {
-        map[i].add(0);
-      }
-      map.add([]);
-    }
+    map = setMap(shape);
+
+    // for (var i = 0; i < mapX; i++) {
+    //   for (var j = 0; j < mapY; j++) {
+    //     map[i].add(0);
+    //   }
+    //   map.add([]);
+    // }
 
     // for (var i = 0; i < mapX; i++) {
     //   for (var j = 0; j < mapY; j++) {
