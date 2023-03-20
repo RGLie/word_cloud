@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_view.dart';
-import 'package:word_cloud/second_word_cloud.dart';
-import 'package:word_cloud/third_cloud.dart';
 
 void main() {
   runApp(const MyApp());
@@ -68,6 +66,29 @@ class _MyHomePageState extends State<MyHomePage> {
     {'word': 'Udemy', 'value': 13},
     {'word': 'Quizlet', 'value': 13},
     {'word': 'Visa', 'value': 12},
+    {'word': 'Microsoft', 'value': 25},
+    {'word': 'TSMC', 'value': 24},
+    {'word': 'PayPal', 'value': 24},
+    {'word': 'AT&T', 'value': 24},
+    {'word': 'Oracle', 'value': 23},
+    {'word': 'Unity', 'value': 23},
+    {'word': 'Roblox', 'value': 23},
+    {'word': 'Lucid', 'value': 22},
+    {'word': 'Naver', 'value': 20},
+    {'word': 'Kakao', 'value': 18},
+    {'word': 'NC Soft', 'value': 18},
+    {'word': 'LG', 'value': 16},
+    {'word': 'Hyundai', 'value': 16},
+    {'word': 'KIA', 'value': 16},
+    {'word': 'twitter', 'value': 16},
+    {'word': 'Tencent', 'value': 15},
+    {'word': 'Alibaba', 'value': 15},
+    {'word': 'Disney', 'value': 14},
+    {'word': 'Spotify', 'value': 14},
+    {'word': 'Udemy', 'value': 13},
+    {'word': 'Quizlet', 'value': 13},
+    {'word': 'Visa', 'value': 12},
+    
   ];
   late WordCloudSetting wordcloud;
   late WordCloudData wcdata;
@@ -95,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
               data: wcdata,
               mapcolor: Color.fromARGB(255, 174, 183, 235),
               mapwidth: 500,
-              mapheight: 400,
+              mapheight: 500,
               fontWeight: FontWeight.bold,
               colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
             )

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
+import 'package:word_cloud/word_cloud_shape.dart';
 
 class WordCloudView extends StatelessWidget {
   final WordCloudData data;
@@ -14,8 +15,11 @@ class WordCloudView extends StatelessWidget {
   final FontWeight? fontWeight;
   final double mapheight;
   final List<Color>? colorlist;
+  final int attempt;
   final double mintextsize;
   final double maxtextsize;
+  final bool optimized;
+  final WordCloudShape? shape;
 
   WordCloudView({
     super.key,
@@ -24,6 +28,9 @@ class WordCloudView extends StatelessWidget {
     required this.mapheight,
     this.mintextsize = 10,
     this.maxtextsize = 100,
+    this.attempt = 20,
+    this.optimized = false,
+    this.shape,
     this.fontFamily,
     this.fontStyle,
     this.fontWeight,
@@ -33,17 +40,30 @@ class WordCloudView extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+    WordCloudShape wcshape;
+    if (shape == null) {
+      wcshape = WordCloudShape();
+    } else {
+      wcshape = shape!;
+    }
+
     WordCloudSetting wordcloudsetting = WordCloudSetting(
       data: data.getData(),
       minTextSize: mintextsize,
-      maxTextSize: maxtextsize,  
+      maxTextSize: maxtextsize,
+      attempt: attempt,
+      shape: wcshape,
     );
 
     wordcloudsetting.setMapSize(mapwidth, mapheight);
     wordcloudsetting.setFont(fontFamily, fontStyle, fontWeight);
     wordcloudsetting.setColorList(colorlist);
     wordcloudsetting.setInitial();
-    wordcloudsetting.drawText();
+    if (optimized) {
+      wordcloudsetting.drawTextOptimized();
+    } else {
+      wordcloudsetting.drawText();
+    }
 
     return Container(
       width: mapwidth,
