@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
+import 'package:word_cloud/word_cloud_shape.dart';
 import 'package:word_cloud/word_cloud_view.dart';
 
 void main() {
@@ -115,9 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
             WordCloudView(
               data: wcdata,
               mapcolor: Color.fromARGB(255, 174, 183, 235),
-              mapwidth: 500,
+              mapwidth: 600,
               mapheight: 500,
               fontWeight: FontWeight.bold,
+              shape: WordCloudEllipse(
+                majoraxis: 300,
+                minoraxis: 250,
+              ),
               colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
             )
           ],

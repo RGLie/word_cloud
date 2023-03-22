@@ -21,3 +21,24 @@ class WordCloudCircle extends WordCloudShape {
     return radius;
   }
 }
+
+class WordCloudEllipse extends WordCloudShape {
+  double majoraxis;
+  double minoraxis;
+  WordCloudEllipse({
+    required this.majoraxis,
+    required this.minoraxis,
+  }) {
+    type = 'ellipse';
+  }
+
+  double getMajorAxis() {
+    return majoraxis;
+  }
+
+  double getMinorAxis() {
+    return minoraxis;
+  }
+
+
+}

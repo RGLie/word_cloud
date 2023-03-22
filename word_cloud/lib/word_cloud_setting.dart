@@ -46,7 +46,7 @@ class WordCloudSetting {
     fontWeight = weight;
   }
 
-  List setMap(WordCloudShape shape) {
+  List setMap(dynamic shape) {
     List makemap = [[]];
     switch (shape.getType()) {
       case 'normal':
@@ -57,7 +57,34 @@ class WordCloudSetting {
           makemap.add([]);
         }
         break;
+
       case 'circle':
+        for (var i = 0; i < mapX; i++) {
+          for (var j = 0; j < mapY; j++) {
+            if (pow(i - (mapX / 2), 2) + pow(j - (mapY / 2), 2) >
+                pow(shape.getRadius(), 2)) {
+              makemap[i].add(1);
+            } else {
+              makemap[i].add(0);
+            }
+          }
+          makemap.add([]);
+        }
+        break;
+
+      case 'ellipse':
+        for (var i = 0; i < mapX; i++) {
+          for (var j = 0; j < mapY; j++) {
+            if (pow(i - (mapX / 2), 2) / pow(shape.getMajorAxis(), 2) +
+                    pow(j - (mapY / 2), 2) / pow(shape.getMinorAxis(), 2) >
+                1) {
+              makemap[i].add(1);
+            } else {
+              makemap[i].add(0);
+            }
+          }
+          makemap.add([]);
+        }
         break;
     }
     return makemap;
@@ -73,13 +100,6 @@ class WordCloudSetting {
     centerY = mapY / 2;
 
     map = setMap(shape);
-
-    // for (var i = 0; i < mapX; i++) {
-    //   for (var j = 0; j < mapY; j++) {
-    //     map[i].add(0);
-    //   }
-    //   map.add([]);
-    // }
 
     // for (var i = 0; i < mapX; i++) {
     //   for (var j = 0; j < mapY; j++) {
@@ -279,12 +299,30 @@ class WordCloudSetting {
               break;
             }
           }
+          if (!isadded) {
+            for (int y = textCenter[i][1].toInt(); y < mapY; y++) {
+              if (checkMap(getX.toDouble(), y.toDouble(), w, h)) {
+                drawIn(i, getX.toDouble(), y.toDouble());
+                isadded = true;
+                break;
+              }
+            }
+          }
         } else if (direction == 1) {
           for (int y = textCenter[i][1].toInt(); y < mapY; y++) {
             if (checkMap(getX.toDouble(), y.toDouble(), w, h)) {
               drawIn(i, getX.toDouble(), y.toDouble());
               isadded = true;
               break;
+            }
+          }
+          if (!isadded) {
+            for (int y = textCenter[i][1].toInt(); y > 0; y--) {
+              if (checkMap(getX.toDouble(), y.toDouble(), w, h)) {
+                drawIn(i, getX.toDouble(), y.toDouble());
+                isadded = true;
+                break;
+              }
             }
           }
         }
