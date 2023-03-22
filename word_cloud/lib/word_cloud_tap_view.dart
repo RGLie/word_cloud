@@ -5,7 +5,7 @@ import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_shape.dart';
 
-class WordCloudView extends StatelessWidget {
+class WordCloudTapView extends StatelessWidget {
   final WordCloudData data;
   final Color? mapcolor;
   final Decoration? decoration;
@@ -20,12 +20,14 @@ class WordCloudView extends StatelessWidget {
   final double maxtextsize;
   final bool optimized;
   final WordCloudShape? shape;
+  final Map<String, Function> wordtap;
 
-  WordCloudView({
+  WordCloudTapView({
     super.key,
     required this.data,
     required this.mapwidth,
     required this.mapheight,
+    required this.wordtap,
     this.mintextsize = 10,
     this.maxtextsize = 100,
     this.attempt = 20,
@@ -65,7 +67,8 @@ class WordCloudView extends StatelessWidget {
       wordcloudsetting.drawText();
     }
 
-    return Gest(
+    return GestureDetector(
+      onVerticalDragDown: (details) {},
       child: Container(
         width: mapwidth,
         height: mapheight,
