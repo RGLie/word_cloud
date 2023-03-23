@@ -5,7 +5,7 @@ import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_shape.dart';
 
-class WordCloudView extends StatelessWidget {
+class WordCloudView extends StatefulWidget {
   final WordCloudData data;
   final Color? mapcolor;
   final Decoration? decoration;
@@ -39,41 +39,50 @@ class WordCloudView extends StatelessWidget {
     this.colorlist,
   });
   @override
-  Widget build(BuildContext context) {
-    WordCloudShape wcshape;
-    if (shape == null) {
+  State<WordCloudView> createState() => _WordCloudViewState();
+}
+
+class _WordCloudViewState extends State<WordCloudView> {
+  late WordCloudShape wcshape;
+  late WordCloudSetting wordcloudsetting;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.shape == null) {
       wcshape = WordCloudShape();
     } else {
-      wcshape = shape!;
+      wcshape = widget.shape!;
     }
 
-    WordCloudSetting wordcloudsetting = WordCloudSetting(
-      data: data.getData(),
-      minTextSize: mintextsize,
-      maxTextSize: maxtextsize,
-      attempt: attempt,
+    wordcloudsetting = WordCloudSetting(
+      data: widget.data.getData(),
+      minTextSize: widget.mintextsize,
+      maxTextSize: widget.maxtextsize,
+      attempt: widget.attempt,
       shape: wcshape,
     );
 
-    wordcloudsetting.setMapSize(mapwidth, mapheight);
-    wordcloudsetting.setFont(fontFamily, fontStyle, fontWeight);
-    wordcloudsetting.setColorList(colorlist);
+    wordcloudsetting.setMapSize(widget.mapwidth, widget.mapheight);
+    wordcloudsetting.setFont(
+        widget.fontFamily, widget.fontStyle, widget.fontWeight);
+    wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
-    if (optimized) {
+    if (widget.optimized) {
       wordcloudsetting.drawTextOptimized();
     } else {
       wordcloudsetting.drawText();
     }
-
-    return Gest(
-      child: Container(
-        width: mapwidth,
-        height: mapheight,
-        color: mapcolor,
-        decoration: decoration,
-        child: CustomPaint(
-          painter: _paint(wordcloudpaint: wordcloudsetting),
-        ),
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: widget.mapwidth,
+      height: widget.mapheight,
+      color: widget.mapcolor,
+      decoration: widget.decoration,
+      child: CustomPaint(
+        painter: _paint(wordcloudpaint: wordcloudsetting),
       ),
     );
   }

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_shape.dart';
+import 'package:word_cloud/word_cloud_tap.dart';
 
-class WordCloudTapView extends StatelessWidget {
+class WordCloudTapView extends StatefulWidget {
   final WordCloudData data;
   final Color? mapcolor;
   final Decoration? decoration;
@@ -20,7 +21,7 @@ class WordCloudTapView extends StatelessWidget {
   final double maxtextsize;
   final bool optimized;
   final WordCloudShape? shape;
-  final Map<String, Function> wordtap;
+  final WordCloudTap wordtap;
 
   WordCloudTapView({
     super.key,
@@ -41,39 +42,66 @@ class WordCloudTapView extends StatelessWidget {
     this.colorlist,
   });
   @override
-  Widget build(BuildContext context) {
-    WordCloudShape wcshape;
-    if (shape == null) {
+  State<WordCloudTapView> createState() => _WordCloudTapViewState();
+}
+
+class _WordCloudTapViewState extends State<WordCloudTapView> {
+  late WordCloudShape wcshape;
+  late WordCloudSetting wordcloudsetting;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.shape == null) {
       wcshape = WordCloudShape();
     } else {
-      wcshape = shape!;
+      wcshape = widget.shape!;
     }
 
-    WordCloudSetting wordcloudsetting = WordCloudSetting(
-      data: data.getData(),
-      minTextSize: mintextsize,
-      maxTextSize: maxtextsize,
-      attempt: attempt,
+    wordcloudsetting = WordCloudSetting(
+      data: widget.data.getData(),
+      minTextSize: widget.mintextsize,
+      maxTextSize: widget.maxtextsize,
+      attempt: widget.attempt,
       shape: wcshape,
     );
 
-    wordcloudsetting.setMapSize(mapwidth, mapheight);
-    wordcloudsetting.setFont(fontFamily, fontStyle, fontWeight);
-    wordcloudsetting.setColorList(colorlist);
+    wordcloudsetting.setMapSize(widget.mapwidth, widget.mapheight);
+    wordcloudsetting.setFont(
+        widget.fontFamily, widget.fontStyle, widget.fontWeight);
+    wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
-    if (optimized) {
+    if (widget.optimized) {
       wordcloudsetting.drawTextOptimized();
     } else {
       wordcloudsetting.drawText();
     }
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onVerticalDragDown: (details) {},
+      onVerticalDragDown: (details) {
+        for (var i = 0; i < widget.data.getData().length; i++) {
+          List points = wordcloudsetting.textPoints;
+          double w = wordcloudsetting.textlist[i].width;
+          double h = wordcloudsetting.textlist[i].height;
+          if (points[i][0] < details.localPosition.dx &&
+              details.localPosition.dx < (points[i][0] + w) &&
+              points[i][1] < details.localPosition.dy &&
+              details.localPosition.dy < (points[i][1] + h)) {
+            if(widget.wordtap.getWordTaps().containsKey(widget.data.getData()[i]['word'] )){
+              widget.wordtap.getWordTaps()[widget.data.getData()[i]['word']]!();
+            }
+            
+          }
+        }
+      },
       child: Container(
-        width: mapwidth,
-        height: mapheight,
-        color: mapcolor,
-        decoration: decoration,
+        width: widget.mapwidth,
+        height: widget.mapheight,
+        color: widget.mapcolor,
+        decoration: widget.decoration,
         child: CustomPaint(
           painter: _paint(wordcloudpaint: wordcloudsetting),
         ),

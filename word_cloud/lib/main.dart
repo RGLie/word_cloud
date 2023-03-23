@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
 import 'package:word_cloud/word_cloud_shape.dart';
+import 'package:word_cloud/word_cloud_tap_view.dart';
+import 'package:word_cloud/word_cloud_tap.dart';
 import 'package:word_cloud/word_cloud_view.dart';
 
 void main() {
@@ -89,21 +91,29 @@ class _MyHomePageState extends State<MyHomePage> {
     {'word': 'Udemy', 'value': 13},
     {'word': 'Quizlet', 'value': 13},
     {'word': 'Visa', 'value': 12},
-    
   ];
-  late WordCloudSetting wordcloud;
-  late WordCloudData wcdata;
-
-  @override
-  void initState() {
-    super.initState();
-    wcdata = WordCloudData(data: word_list);
-  }
+  int count = 0;
+  String wordstring = '';
 
   @override
   Widget build(BuildContext context) {
-    //wcdata.addDataAsMapList(word_list);
-    
+    WordCloudData wcdata;
+    WordCloudTap wordtaps = WordCloudTap();
+
+    wcdata = WordCloudData(data: word_list);
+    List a = [];
+
+    for (int i = 0; i < word_list.length; i++) {
+      void tap() {
+        setState(() {
+          count += 1;
+          wordstring = word_list[i]['word'];
+        });
+      }
+
+      wordtaps.addWordtap(word_list[i]['word'], tap);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -113,18 +123,34 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            WordCloudView(
+            Text('Clicked Word : ${wordstring}'),
+            Text('${count}'),
+            // WordCloudView(
+            //   data: wcdata,
+            //   mapcolor: Color.fromARGB(255, 174, 183, 235),
+            //   mapwidth: 600,
+            //   mapheight: 500,
+            //   fontWeight: FontWeight.bold,
+            //   shape: WordCloudEllipse(
+            //     majoraxis: 300,
+            //     minoraxis: 250,
+            //   ),
+            //   colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+            // ),
+
+            SizedBox(
+              height: 15,
+            ),
+
+            WordCloudTapView(
               data: wcdata,
               mapcolor: Color.fromARGB(255, 174, 183, 235),
               mapwidth: 600,
               mapheight: 500,
+              wordtap: wordtaps,
               fontWeight: FontWeight.bold,
-              shape: WordCloudEllipse(
-                majoraxis: 300,
-                minoraxis: 250,
-              ),
               colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
-            )
+            ),
           ],
         ),
       ),
