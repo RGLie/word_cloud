@@ -125,32 +125,44 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text('Clicked Word : ${wordstring}'),
             Text('${count}'),
-            // WordCloudView(
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                WordCloudView(
+                  data: wcdata,
+                  mapcolor: Color.fromARGB(255, 174, 183, 235),
+                  mapwidth: 500,
+                  mapheight: 500,
+                  fontWeight: FontWeight.bold,
+                  shape: WordCloudCircle(radius: 250),
+                  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+                ),
+
+                SizedBox(
+                  height: 15,
+                  width:15,
+                ),
+                WordCloudView(
+                  data: wcdata,
+                  mapcolor: Color.fromARGB(255, 174, 183, 235),
+                  mapwidth: 500,
+                  mapheight: 500,
+                  fontWeight: FontWeight.bold,
+                  shape: WordCloudCircle(radius: 250),
+                  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+                ),
+              ],
+            ),
+
+            // WordCloudTapView(
             //   data: wcdata,
             //   mapcolor: Color.fromARGB(255, 174, 183, 235),
             //   mapwidth: 600,
             //   mapheight: 500,
+            //   wordtap: wordtaps,
             //   fontWeight: FontWeight.bold,
-            //   shape: WordCloudEllipse(
-            //     majoraxis: 300,
-            //     minoraxis: 250,
-            //   ),
             //   colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
             // ),
-
-            SizedBox(
-              height: 15,
-            ),
-
-            WordCloudTapView(
-              data: wcdata,
-              mapcolor: Color.fromARGB(255, 174, 183, 235),
-              mapwidth: 600,
-              mapheight: 500,
-              wordtap: wordtaps,
-              fontWeight: FontWeight.bold,
-              colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
-            ),
           ],
         ),
       ),

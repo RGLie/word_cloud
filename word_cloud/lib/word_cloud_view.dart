@@ -18,7 +18,6 @@ class WordCloudView extends StatefulWidget {
   final int attempt;
   final double mintextsize;
   final double maxtextsize;
-  final bool optimized;
   final WordCloudShape? shape;
 
   WordCloudView({
@@ -29,7 +28,6 @@ class WordCloudView extends StatefulWidget {
     this.mintextsize = 10,
     this.maxtextsize = 100,
     this.attempt = 20,
-    this.optimized = false,
     this.shape,
     this.fontFamily,
     this.fontStyle,
@@ -68,11 +66,9 @@ class _WordCloudViewState extends State<WordCloudView> {
         widget.fontFamily, widget.fontStyle, widget.fontWeight);
     wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
-    if (widget.optimized) {
-      wordcloudsetting.drawTextOptimized();
-    } else {
-      wordcloudsetting.drawText();
-    }
+    
+    wordcloudsetting.drawTextOptimized();
+    
   }
   @override
   Widget build(BuildContext context) {

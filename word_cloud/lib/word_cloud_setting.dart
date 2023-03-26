@@ -201,7 +201,7 @@ class WordCloudSetting {
     return true;
   }
 
-  bool checkMapOptimized1(int x, int y, double w, double h) {
+  bool checkMapOptimized(int x, int y, double w, double h) {
     if (mapX - x < w) {
       return false;
     }
@@ -212,24 +212,13 @@ class WordCloudSetting {
       if (map[i][y + h - 1] == 1) {
         return false;
       }
-    }
-    return true;
-  }
-
-  bool checkMapOptimized2(int x, int y, double w, double h) {
-    if (mapX - x < w) {
-      return false;
-    }
-    if (mapY - y < h) {
-      return false;
-    }
-    for (int i = x.toInt(); i < x.toInt() + w; i++) {
       if (map[i][y + 1] == 1) {
         return false;
       }
     }
     return true;
   }
+
 
   void drawIn(int index, double x, double y) {
     textPoints[index] = [x, y];
@@ -256,7 +245,7 @@ class WordCloudSetting {
         int direction = Random().nextInt(2);
         if (direction == 0) {
           for (int y = textCenter[i][1].toInt(); y > 0; y--) {
-            if (checkMapOptimized1(getX, y, w, h)) {
+            if (checkMapOptimized(getX, y, w, h)) {
               drawIn(i, getX.toDouble(), y.toDouble());
               isadded = true;
               break;
@@ -264,7 +253,7 @@ class WordCloudSetting {
           }
         } else if (direction == 1) {
           for (int y = textCenter[i][1].toInt(); y < mapY; y++) {
-            if (checkMapOptimized2(getX, y, w, h)) {
+            if (checkMapOptimized(getX, y, w, h)) {
               drawIn(i, getX.toDouble(), y.toDouble());
               isadded = true;
               break;

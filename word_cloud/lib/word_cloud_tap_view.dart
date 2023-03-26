@@ -19,7 +19,6 @@ class WordCloudTapView extends StatefulWidget {
   final int attempt;
   final double mintextsize;
   final double maxtextsize;
-  final bool optimized;
   final WordCloudShape? shape;
   final WordCloudTap wordtap;
 
@@ -32,7 +31,6 @@ class WordCloudTapView extends StatefulWidget {
     this.mintextsize = 10,
     this.maxtextsize = 100,
     this.attempt = 20,
-    this.optimized = false,
     this.shape,
     this.fontFamily,
     this.fontStyle,
@@ -71,11 +69,9 @@ class _WordCloudTapViewState extends State<WordCloudTapView> {
         widget.fontFamily, widget.fontStyle, widget.fontWeight);
     wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
-    if (widget.optimized) {
-      wordcloudsetting.drawTextOptimized();
-    } else {
-      wordcloudsetting.drawText();
-    }
+    wordcloudsetting.drawTextOptimized();
+
+    
   }
 
   @override
