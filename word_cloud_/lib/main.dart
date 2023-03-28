@@ -64,22 +64,6 @@ class _MyHomePageState extends State<MyHomePage> {
     {'word': 'twitter', 'value': 16},
     {'word': 'Tencent', 'value': 15},
     {'word': 'Alibaba', 'value': 15},
-    {'word': 'Disney', 'value': 14},
-    {'word': 'Spotify', 'value': 14},
-    {'word': 'Udemy', 'value': 13},
-    {'word': 'Quizlet', 'value': 13},
-    {'word': 'Visa', 'value': 12},
-    {'word': 'Microsoft', 'value': 25},
-    {'word': 'TSMC', 'value': 24},
-    {'word': 'PayPal', 'value': 24},
-    {'word': 'AT&T', 'value': 24},
-    {'word': 'Oracle', 'value': 23},
-    {'word': 'Unity', 'value': 23},
-    {'word': 'Roblox', 'value': 23},
-    {'word': 'Lucid', 'value': 22},
-    {'word': 'Naver', 'value': 20},
-    {'word': 'Kakao', 'value': 18},
-    {'word': 'NC Soft', 'value': 18},
     {'word': 'LG', 'value': 16},
     {'word': 'Hyundai', 'value': 16},
     {'word': 'KIA', 'value': 16},
@@ -91,6 +75,42 @@ class _MyHomePageState extends State<MyHomePage> {
     {'word': 'Udemy', 'value': 13},
     {'word': 'Quizlet', 'value': 13},
     {'word': 'Visa', 'value': 12},
+    {'word': 'Lucid', 'value': 22},
+    {'word': 'Naver', 'value': 20},
+    {'word': 'Hyundai', 'value': 16},
+    {'word': 'KIA', 'value': 16},
+    {'word': 'twitter', 'value': 16},
+    {'word': 'Tencent', 'value': 15},
+    {'word': 'Alibaba', 'value': 15},
+    {'word': 'Disney', 'value': 14},
+    {'word': 'Spotify', 'value': 14},
+    {'word': 'Visa', 'value': 12},
+    {'word': 'Microsoft', 'value': 10},
+    {'word': 'TSMC', 'value': 10},
+    {'word': 'PayPal', 'value': 24},
+    {'word': 'AT&T', 'value': 10},
+    {'word': 'Oracle', 'value': 10},
+    {'word': 'Unity', 'value': 10},
+    {'word': 'Roblox', 'value': 10},
+    {'word': 'Lucid', 'value': 10},
+    {'word': 'Naver', 'value': 10},
+    {'word': 'Kakao', 'value': 18},
+    {'word': 'NC Soft', 'value': 18},
+    {'word': 'LG', 'value': 16},
+    {'word': 'Hyundai', 'value': 16},
+    {'word': 'KIA', 'value': 16},
+    {'word': 'twitter', 'value': 16},
+    {'word': 'Tencent', 'value': 10},
+    {'word': 'Alibaba', 'value': 10},
+    {'word': 'Disney', 'value': 14},
+    {'word': 'Spotify', 'value': 14},
+    {'word': 'Udemy', 'value': 13},
+    {'word': 'NC Soft', 'value': 12},
+    {'word': 'LG', 'value': 16},
+    {'word': 'Hyundai', 'value': 10},
+    {'word': 'KIA', 'value': 16},
+
+    
   ];
   int count = 0;
   String wordstring = '';
@@ -101,7 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
     WordCloudTap wordtaps = WordCloudTap();
 
     wcdata = WordCloudData(data: word_list);
-    List a = [];
 
     for (int i = 0; i < word_list.length; i++) {
       void tap() {
@@ -123,34 +142,39 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Clicked Word : ${wordstring}'),
-            Text('${count}'),
+            
+            Text('Clicked Word : ${wordstring}', style: TextStyle(fontSize: 20),),
+            Text('Clicked Count : ${count}', style: TextStyle(fontSize: 20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                WordCloudView(
+                WordCloudTapView(
                   data: wcdata,
+                  wordtap: wordtaps,
                   mapcolor: Color.fromARGB(255, 174, 183, 235),
                   mapwidth: 500,
                   mapheight: 500,
                   fontWeight: FontWeight.bold,
                   shape: WordCloudCircle(radius: 250),
-                  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+                  colorlist: [Colors.black],
                 ),
 
-                SizedBox(
-                  height: 15,
-                  width:15,
-                ),
-                WordCloudView(
-                  data: wcdata,
-                  mapcolor: Color.fromARGB(255, 174, 183, 235),
-                  mapwidth: 500,
-                  mapheight: 500,
-                  fontWeight: FontWeight.bold,
-                  shape: WordCloudCircle(radius: 250),
-                  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
-                ),
+                // SizedBox(
+                //   height: 15,
+                //   width:30,
+                // ),
+                // WordCloudView(
+                //   data: wcdata,
+                //   mapcolor: Color.fromARGB(255, 174, 183, 235),
+                //   mapwidth: 700,
+                //   mapheight: 500,
+                //   fontWeight: FontWeight.bold,
+                //   shape: WordCloudEllipse(
+                //     majoraxis: 350,
+                //     minoraxis: 220
+                //   ),
+                //   colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+                // ),
               ],
             ),
 
