@@ -42,6 +42,7 @@ This is the basic usage of the `WordCloudView`.  Below word cloud is result of e
 
 
 #### mapcolor
+---
 ```dart
 WordCloudView(
   data: mydata,
@@ -56,6 +57,7 @@ WordCloudView(
   
 
 #### colorlist
+---
 ```dart
 WordCloudView(
   data: mydata,
