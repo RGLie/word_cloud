@@ -40,9 +40,8 @@ This is the basic usage of the `WordCloudView`.  Below word cloud is result of e
 ![white black](https://drive.google.com/uc?export=view&id=1xc0z_mBl0YF94ECMhIkFX7UkJd1PETbW)
 
 
-
-#### mapcolor
 ---
+#### mapcolor
 ```dart
 WordCloudView(
   data: mydata,
@@ -55,9 +54,8 @@ WordCloudView(
 ![black](https://drive.google.com/uc?export=view&id=1XOT6A5_G5Y5V9gkOWwYXDPGdYlXmFSbC)
 
   
-
-#### colorlist
 ---
+#### colorlist
 ```dart
 WordCloudView(
   data: mydata,
