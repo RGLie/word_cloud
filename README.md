@@ -69,4 +69,5 @@ With the `colorlist` parameter, you can change word's font color. You should inp
 
 ![캡처](https://drive.google.com/uc?export=view&id=1Br7XiPwr4KRNglr61NmzSW396AGHZ4JR)
 
-**fontWeight**
+---
+#### fontWeight
