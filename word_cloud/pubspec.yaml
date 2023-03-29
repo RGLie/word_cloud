@@ -1,7 +1,7 @@
 name: word_cloud
-description: A new Flutter package project.
-version: 0.0.1
-homepage:
+description: Word Cloud Generator in Flutter
+version: 1.0.0
+homepage: https://dev.to/rglie
 
 environment:
   sdk: '>=3.0.0-313.0.dev <4.0.0'

@@ -1,39 +1,71 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Word Cloud
+Generate and Visualize Word Cloud in Flutter  
+**Show your interest in this project through ***Likes*** and ***Stars***!**  
+<a href="https://www.buymeacoffee.com/rglie" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>  
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+## Contents
++ WordCloudData
++ WordCloudView
++ WordCloudTap
++ WordCloudTapView
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+## WordCloudData
+To use the word cloud widget, you must set the desired data into the `WordCloudData` .  
 ```dart
-const like = 'sample';
+WordCloudData mydata = WordCloudData(data: data_list);
+```
+Parameter `data` needs list of `Map` that have keys `word` and `value`.  
+For example,
+```dart
+List<Map> data_list= [
+  {'word': 'Apple','value': 100},
+  {'word': 'Samsung','value': 60},
+];
+```
+Another way to set the data is using instance method `addData`.  
+```dart
+mydata.addData(String word, Double value);
 ```
 
-## Additional information
+## WordCloudView
+After setting the data, you can use the `WordCloudView` widget.
+```dart
+WordCloudView(
+  data: mydata,
+  mapwidth: 500,
+  mapheight: 500,
+)
+```
+This is the basic usage of the `WordCloudView`.  Below word cloud is result of example data set.    
+![white black](https://drive.google.com/uc?export=view&id=1xc0z_mBl0YF94ECMhIkFX7UkJd1PETbW)
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+
+
+**mapcolor**  
+```dart
+WordCloudView(
+  data: mydata,
+  mapcolor: Color.fromARGB(255, 174, 183, 235),
+  mapwidth: 500,
+  mapheight: 500,
+)
+```
+`mapcolor` set the background color of word cloud.
+![black](https://drive.google.com/uc?export=view&id=1XOT6A5_G5Y5V9gkOWwYXDPGdYlXmFSbC)
+
+  
+
+**colorlist**  
+```dart
+WordCloudView(
+  data: mydata,
+  mapcolor: Color.fromARGB(255, 174, 183, 235),
+  mapwidth: 500,
+  mapheight: 500,
+  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+)
+```
+With the `colorlist` parameter, you can change word's font color. You should input list of `Color` . Word cloud will select font color ***Randomly***.
+![캡처](https://drive.google.com/uc?export=view&id=1Br7XiPwr4KRNglr61NmzSW396AGHZ4JR)
+
+**fontWeight**

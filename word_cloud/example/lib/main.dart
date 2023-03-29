@@ -116,7 +116,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    WordCloudData wcdata = WordCloudData(data: word_list);;
+    WordCloudData wcdata = WordCloudData(data: word_list);
     WordCloudTap wordtaps = WordCloudTap();
 
 
@@ -164,11 +164,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 WordCloudView(
                   data: wcdata,
-                  mapcolor: Color.fromARGB(255, 174, 183, 235),
+                  //mapcolor: Color.fromARGB(255, 174, 183, 235),
                   mapwidth: 500,
                   mapheight: 500,
-                  fontWeight: FontWeight.bold,
-                  colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
+                  //fontWeight: FontWeight.bold,
+                  //colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
                 ),
               ],
             ),
