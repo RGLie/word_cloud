@@ -41,7 +41,7 @@ This is the basic usage of the `WordCloudView`.  Below word cloud is result of e
 
 
 
-**mapcolor**  
+#### mapcolor
 ```dart
 WordCloudView(
   data: mydata,
@@ -55,7 +55,7 @@ WordCloudView(
 
   
 
-**colorlist**  
+#### colorlist
 ```dart
 WordCloudView(
   data: mydata,
@@ -65,7 +65,8 @@ WordCloudView(
   colorlist: [Colors.black, Colors.redAccent, Colors.indigoAccent],
 )
 ```
-With the `colorlist` parameter, you can change word's font color. You should input list of `Color` . Word cloud will select font color ***Randomly***.
+With the `colorlist` parameter, you can change word's font color. You should input list of `Color` . Word cloud will select font color ***Randomly***.  
+
 ![캡처](https://drive.google.com/uc?export=view&id=1Br7XiPwr4KRNglr61NmzSW396AGHZ4JR)
 
 **fontWeight**
