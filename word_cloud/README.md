@@ -2,7 +2,7 @@
 ![ellipse](https://drive.google.com/uc?export=view&id=1EU-mM0aG86_NO7G4seoeARUReDBw4vHQ)  
 **Generate and Visualize Word Cloud in Flutter**  
 Show your interest in this project through ***Likes*** and ***Stars***!  
-Welcome pull requests and issues!
+Welcome pull requests and issues!  
 <a href="https://www.buymeacoffee.com/rglie" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>  
 
 ## Contents
