@@ -1,10 +1,11 @@
 name: word_cloud
 description: Word Cloud Generator in Flutter
-version: 1.0.0
+version: 1.0.1
+repository: https://github.com/RGLie/word_cloud
 homepage: https://dev.to/rglie
 
 environment:
-  sdk: '>=3.0.0-313.0.dev <4.0.0'
+  sdk: ">=2.17.0-69.2.beta <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
