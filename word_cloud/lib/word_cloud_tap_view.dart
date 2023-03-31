@@ -20,7 +20,7 @@ class WordCloudTapView extends StatefulWidget {
   final WordCloudShape? shape;
   final WordCloudTap wordtap;
 
-  WordCloudTapView({
+  const WordCloudTapView({
     super.key,
     required this.data,
     required this.mapwidth,
@@ -97,16 +97,16 @@ class _WordCloudTapViewState extends State<WordCloudTapView> {
         color: widget.mapcolor,
         decoration: widget.decoration,
         child: CustomPaint(
-          painter: _paint(wordcloudpaint: wordcloudsetting),
+          painter: WCTpaint(wordcloudpaint: wordcloudsetting),
         ),
       ),
     );
   }
 }
 
-class _paint extends CustomPainter {
+class WCTpaint extends CustomPainter {
   final WordCloudSetting wordcloudpaint;
-  _paint({
+  WCTpaint({
     required this.wordcloudpaint,
   });
 

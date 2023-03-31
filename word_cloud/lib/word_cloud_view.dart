@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_data.dart';
 import 'package:word_cloud/word_cloud_setting.dart';
@@ -20,7 +18,7 @@ class WordCloudView extends StatefulWidget {
   final double maxtextsize;
   final WordCloudShape? shape;
 
-  WordCloudView({
+  const WordCloudView({
     super.key,
     required this.data,
     required this.mapwidth,
@@ -78,15 +76,15 @@ class _WordCloudViewState extends State<WordCloudView> {
       color: widget.mapcolor,
       decoration: widget.decoration,
       child: CustomPaint(
-        painter: _paint(wordcloudpaint: wordcloudsetting),
+        painter: WCpaint(wordcloudpaint: wordcloudsetting),
       ),
     );
   }
 }
 
-class _paint extends CustomPainter {
+class WCpaint extends CustomPainter {
   final WordCloudSetting wordcloudpaint;
-  _paint({
+  WCpaint({
     required this.wordcloudpaint,
   });
 
