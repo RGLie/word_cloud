@@ -213,7 +213,7 @@ class WordCloudSetting {
       return false;
     }
     for (int i = x.toInt(); i < x.toInt() + w; i++) {
-      if (map[i][y + h - 1] == 1) {
+      if (map[i][(y + h - 1).toInt()] == 1) {
         return false;
       }
       if (map[i][y + 1] == 1) {
