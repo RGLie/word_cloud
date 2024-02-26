@@ -15,6 +15,7 @@ class WordCloudView extends StatefulWidget {
   final List<Color>? colorlist;
   final int attempt;
   final double mintextsize;
+  final double fontSize;
   final double maxtextsize;
   final WordCloudShape? shape;
 
@@ -24,6 +25,7 @@ class WordCloudView extends StatefulWidget {
     required this.mapwidth,
     required this.mapheight,
     this.mintextsize = 10,
+    this.fontSize = 16,
     this.maxtextsize = 100,
     this.attempt = 30,
     this.shape,
@@ -55,6 +57,7 @@ class _WordCloudViewState extends State<WordCloudView> {
       data: widget.data.getData(),
       minTextSize: widget.mintextsize,
       maxTextSize: widget.maxtextsize,
+      fontSize: widget.fontSize,
       attempt: widget.attempt,
       shape: wcshape,
     );
@@ -64,10 +67,10 @@ class _WordCloudViewState extends State<WordCloudView> {
         widget.fontFamily, widget.fontStyle, widget.fontWeight);
     wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
-    
+
     wordcloudsetting.drawTextOptimized();
-    
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
