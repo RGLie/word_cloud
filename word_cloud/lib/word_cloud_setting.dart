@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:word_cloud/word_cloud_shape.dart';
 
@@ -8,6 +9,7 @@ class WordCloudSetting {
   String? fontFamily;
   FontStyle? fontStyle;
   FontWeight? fontWeight;
+  double? fontSize;
   List<Map> data = [];
   List map = [[]];
   List textCenter = [];
@@ -27,6 +29,7 @@ class WordCloudSetting {
     required this.data,
     required this.minTextSize,
     required this.maxTextSize,
+    required this.fontSize,
     required this.attempt,
     required this.shape,
   });
@@ -114,17 +117,11 @@ class WordCloudSetting {
     // }
 
     for (var i = 0; i < data.length; i++) {
-      double getTextSize =
-          (minTextSize * (data[0]['value'] - data[i]['value']) +
-                  maxTextSize *
-                      (data[i]['value'] - data[data.length - 1]['value'])) /
-              (data[0]['value'] - data[data.length - 1]['value']);
-
       final textSpan = TextSpan(
         text: data[i]['word'],
         style: TextStyle(
           color: colorList?[Random().nextInt(colorList!.length)],
-          fontSize: getTextSize,
+          fontSize: fontSize,
           fontWeight: fontWeight,
           fontFamily: fontFamily,
           fontStyle: fontStyle,

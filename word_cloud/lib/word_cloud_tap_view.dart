@@ -17,6 +17,7 @@ class WordCloudTapView extends StatefulWidget {
   final int attempt;
   final double mintextsize;
   final double maxtextsize;
+  final double fontSize;
   final WordCloudShape? shape;
   final WordCloudTap wordtap;
 
@@ -27,6 +28,7 @@ class WordCloudTapView extends StatefulWidget {
     required this.mapheight,
     required this.wordtap,
     this.mintextsize = 10,
+    this.fontSize = 16,
     this.maxtextsize = 100,
     this.attempt = 30,
     this.shape,
@@ -58,6 +60,7 @@ class _WordCloudTapViewState extends State<WordCloudTapView> {
       data: widget.data.getData(),
       minTextSize: widget.mintextsize,
       maxTextSize: widget.maxtextsize,
+      fontSize: widget.fontSize,
       attempt: widget.attempt,
       shape: wcshape,
     );
@@ -68,8 +71,6 @@ class _WordCloudTapViewState extends State<WordCloudTapView> {
     wordcloudsetting.setColorList(widget.colorlist);
     wordcloudsetting.setInitial();
     wordcloudsetting.drawTextOptimized();
-
-    
   }
 
   @override
@@ -84,10 +85,11 @@ class _WordCloudTapViewState extends State<WordCloudTapView> {
               details.localPosition.dx < (points[i][0] + w) &&
               points[i][1] < details.localPosition.dy &&
               details.localPosition.dy < (points[i][1] + h)) {
-            if(widget.wordtap.getWordTaps().containsKey(widget.data.getData()[i]['word'] )){
+            if (widget.wordtap
+                .getWordTaps()
+                .containsKey(widget.data.getData()[i]['word'])) {
               widget.wordtap.getWordTaps()[widget.data.getData()[i]['word']]!();
             }
-            
           }
         }
       },
